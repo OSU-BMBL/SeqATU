@@ -19,10 +19,10 @@ SeqATU is an integrated C++ package requires a basic UNIX/Linux environment. The
 Usage:
 
 1. Download SeqATU
-	The source code of SeqATU is freely available at ###########.
+	The source code of SeqATU is freely available at https://github.com/OSU-BMBL/SeqATU.
 	To install the SeqATU, first, download the zip file manually from github, or use the code below in Unix:
 		cd /your/working/path/
-		wget ##########
+		wget https://github.com/OSU-BMBL/SeqATU
 	Unzip the file:
 		unzip SeqATU.zip && rm -rf SeqATU.zip
 	
