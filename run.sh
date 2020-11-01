@@ -6,7 +6,7 @@
 cd data
 wget https://nchc.dl.sourceforge.net/project/bio-bwa/bwa-0.7.17.tar.bz2           
 tar -xjvf bwa-0.7.17.tar.bz2
-rm SeqATU.tar.bz2
+rm bwa-0.7.17.tar.bz2
 cd bwa-0.7.17
 make
 cd ..
