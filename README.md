@@ -16,15 +16,15 @@ Unzip the file:
 	unzip master.zip && rm -rf master.zip
 
 ## 2. Prepare data ##
-First create a folder named data, then open it:
+First open SeqATU-master:
 
 	cd SeqATU-master
-	mkdir data && cd data
 
 1.Download and unzip the input data file of SeqATU
 
 	wget https://bmbl.bmi.osumc.edu/downloadFiles/data.zip
 	unzip data.zip && rm -rf data.zip
+	
 
 The input data of SeqATU contains five datasets:
 |Data|Description|
@@ -46,8 +46,7 @@ The genomic sequence of Escherichia coli str. K-12 substr. MG1655 (sequence_ecol
 ***Output:***  
 The read alignment result for RNA-Seq data under M9Enrich (M9Enrich.sam).  
 ***Argument:***  
-
-	cd ..
+	
 	sh run.sh sequence_ecoli_NCBI.fasta M9Enrich_R1.fastq M9Enrich_R2.fastq M9Enrich.sam
 	
 ## 3. Run SeqATU ##
@@ -73,7 +72,7 @@ Finally, you can obtain the predicted ATUs by SeqATU.
 # Data Interpretation: #
 ## 1. Maximal ATU cluster data from rseqATU (M9Enrich_FinalTUTable_forPlot): ##
 
-| TU name | start | end | strand | confidence | gene names |
+| TU name | Start | End | Strand | Confidence | Gene names |
 | :---: | :---: | :---: | :---: | :---: | :---: |
 | TU0041 | 117109 | 117549 | - | 1 | ASAP:ABE-0000372,ECOCYC:EG12107,EcoGene:EG12107,GeneID:945817 |
 | TU0042 | 117752 | 121551 | - | 1 |ASAP:ABE-0000374,ECOCYC:EG11546,EcoGene:EG11546,GeneID:948869<br>ASAP:ABE-0000384,ECOCYC:EG10084,EcoGene:EG10084,GeneID:946018 |
