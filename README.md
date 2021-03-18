@@ -1,6 +1,6 @@
 ﻿# SeqATU #
 ## Brief Description: ##
-The SeqATU program is the program to predict ATUs (alternative transcription units) of bacterial organisms.
+SeqATU provides a generalized framework for the inference of ATUs (alternative transcription units) with dynamic patterns and overlapping nature based on next-generation RNA-Seq data. SeqATU can be easily applied to any bacterial organism with accessible reference genome and genome annotations to identify the ATU architecture.
 ## Environment: ##
 SeqATU is an integrated C++ package requires a basic **UNIX/Linux environment**. The gcc compiler with **version 4.4.7 or 4.8.5** is required to be prior installed. More details can be found [here](https://gcc.gnu.org/wiki/InstallingGCC). Currently, SeqATU does not support Mac or Windows system.
 # Usage: #
@@ -45,9 +45,12 @@ The input data of SeqATU contains five datasets:
 The genomic sequence of Escherichia coli str. K-12 substr. MG1655 (sequence_ecoli_NCBI.fasta), and the pair-end RNA-Seq data under M9Enrich (M9Enrich_R1.fastq and M9Enrich_R2.fastq).  
 ***Output:***  
 The read alignment result for RNA-Seq data under M9Enrich (M9Enrich.sam).  
-***Argument:***  
-	
+***Argument :***  
+
 	sh run.sh sequence_ecoli_NCBI.fasta M9Enrich_R1.fastq M9Enrich_R2.fastq M9Enrich.sam
+	
+**Note:** If the next-generation RNA-Seq data you used is paired-end reads, please use the above command; If single-end reads, please use:
+sh run_single.sh reference.fasta single_read.fastq  single_read.sam
 	
 ## 3. Run SeqATU ##
 First create a folder named out, then open the code folder:

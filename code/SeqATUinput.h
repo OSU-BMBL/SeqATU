@@ -87,6 +87,7 @@ int tag_reverse=1;
 int tag_forward=1;
 
 map<string,string> hash_1;
+map<string,string>::iterator iter_0227;//add 0227
 string temp_Dbxref;
 map<string,int> hash_forward_c;//gene-->tag
 map<string,int>::iterator iter_c;
@@ -112,6 +113,7 @@ for(int i=0;i<vec_input_1.size();i++)
 		vec_samread.push_back(temp);
 	}
 }
+
 
 
 First_Last_Read FLR;
@@ -154,7 +156,8 @@ for(int e=0;e<vec_input_2.size();e++)
 			istr.str(temp_9);
 			while(istr>>temp_1)
 			{
-				if(temp_1=="gene")
+				//if(temp_1=="gene")
+				if(temp_1=="Name")     //change 0227
 				{
 					istr>>temp_gene;
 					hash[temp_gene]=vec_hash;
@@ -164,6 +167,7 @@ for(int e=0;e<vec_input_2.size();e++)
 				if(temp_1=="Dbxref")                  //maximal ATU cluster
 				{
 					istr>>temp_Dbxref;
+					//hash_1[temp_Dbxref]=temp_gene;    // !!!!!20210227 best to test
 				}
 			}
 			istr.clear();
@@ -229,8 +233,6 @@ for(int e=0;e<vec_input_2.size();e++)
 	}
 }
 
-//cout<<"hash.size:"<<hash.size()<<"\n";
-
 
 
 
@@ -261,9 +263,13 @@ vector<int> vec_genelocation;
 vector<double> vec_average;//average
 vector<int> vec_length;
 
-iter_max=max_element(Vec_firstlast_read[0].begin(),Vec_firstlast_read[1].end());
+
+iter_max=max_element(Vec_firstlast_read[1].begin(),Vec_firstlast_read[1].end());// change
 min=1;
+
+
 vec_bp=PE.eachbase_readcount(min,*iter_max,Vec_firstlast_read[0],Vec_firstlast_read[1]);
+
 
 
 //*******************maximal ATU cluster*******************
@@ -299,11 +305,11 @@ for(int e=0;e<vec_input_3.size();e++)
 	while(istr>>temp_1)
 	{
 		flag_cluster++;
-		if(flag_cluster==4)
+		if(flag_cluster==4)//strand
 		{
 			temp_4=temp_1;
 		}
-		if(flag_cluster>=6)
+		if(flag_cluster>=6)//maximal ATU cluster
 		{	
 			vec_temp.push_back(temp_1);
 		}
@@ -311,10 +317,25 @@ for(int e=0;e<vec_input_3.size();e++)
 	istr.clear();
 	
 	vec_inicluster.clear();	
+	//for(int i=0;i<vec_temp.size();i++)
+	//{
+		//vec_inicluster.push_back(hash_1[vec_temp[i]]);
+	//}
+	//add 0227
 	for(int i=0;i<vec_temp.size();i++)
 	{
-		vec_inicluster.push_back(hash_1[vec_temp[i]]);
+		iter_0227=hash_1.find(vec_temp[i]);
+		if(iter_0227!=hash_1.end())
+		{
+			vec_inicluster.push_back(hash_1[vec_temp[i]]);
+		}
+		if(iter_0227==hash_1.end())
+		{
+			vec_inicluster.push_back(vec_temp[i]);
+		}
 	}
+	//add 0227
+	
 	if(temp_4=="+")
 	{
 		vec_inicluster.push_back("forward");
@@ -372,8 +393,6 @@ for(int i=1;i<Vec_reverse_c.size();i++)
 	}
 }	
 //new Vec_inital_cluster	
-
-//cout<<Vec_inital_cluster.size()<<"\n";
 
 
 
@@ -439,7 +458,7 @@ for(int k=0;k<Vec_Cluster.size();k++)
 		result=PE.eachgene_readcount(min,max,vec_location,vec_bp);
 		Average_add=result[result.size()-1];
 		result.pop_back();
-		vec_average.push_back(Average_add); 
+//		vec_average.push_back(Average_add); 
 
 		for(int i=1;i<vec_location.size();i++)
 		{
@@ -448,6 +467,7 @@ for(int k=0;k<Vec_Cluster.size();k++)
 
 		if(count==2*vec_flag.size())//reverse
 		{
+			vec_average.push_back(Average_add);
 			vec_cluster_new.clear();
 			vec_genelocation.clear();
 			vec_expression.clear();
@@ -458,6 +478,7 @@ for(int k=0;k<Vec_Cluster.size();k++)
 			vec_cluster_new.push_back(vec_cluster[vec_cluster.size()-1]);
 			
 			Vec_Cluster_new.push_back(vec_cluster_new);//new cluster
+
 			vec_cluster_new.clear();
 		
 			for(int i=0;i<vec_location.size();i++)
@@ -483,6 +504,7 @@ for(int k=0;k<Vec_Cluster.size();k++)
 		
 		if(count==vec_flag.size())//forward
 		{
+			vec_average.push_back(Average_add);
 			vec_cluster_new.clear();
 			vec_genelocation.clear();
 			vec_expression.clear();
@@ -584,6 +606,7 @@ vector<vector<string> > Vec_v;
 vector<string> vec_time_0924;
 for(int x=0;x<Vec_Cluster_new.size();x++)
 {
+
 	
 	Vec_seqatu_input.push_back(Vec_Cluster_new[x]);
 	vec_time_0924.clear();
@@ -604,7 +627,8 @@ for(int x=0;x<Vec_Cluster_new.size();x++)
 			}
 		}
 	}
-		
+
+	
 	for(int i=s;i<s+t;i++)
 	{
 		for(int j=0;j<s+t;j++)
@@ -623,6 +647,8 @@ for(int x=0;x<Vec_Cluster_new.size();x++)
 	vec_time_0924.clear();
 	string temp_0924;
     stringstream ss_0924;  
+	
+
 	
 	for(int i=0;i<s;i++)
 	{
@@ -666,6 +692,8 @@ for(int x=0;x<Vec_Cluster_new.size();x++)
 			flag=a*gene_number-0.5*a*(a-1);
 		}
 	}//u
+
+
 	
 	vec.clear();
 	Vec_A.clear();
@@ -699,6 +727,7 @@ for(int x=0;x<Vec_Cluster_new.size();x++)
 			}
 		}
 	}//A
+
 
 	
 	a=1;
@@ -742,6 +771,7 @@ for(int x=0;x<Vec_Cluster_new.size();x++)
 	Vec_v.push_back(vec);
 	vec.clear();
 	//v
+
 	
 	vec.clear();
 	Vec_B.clear();
@@ -775,6 +805,8 @@ for(int x=0;x<Vec_Cluster_new.size();x++)
 			}
 		}
 	}//B
+
+
 
 	vec.clear();
 	for(int i=1;i<=t;i++)

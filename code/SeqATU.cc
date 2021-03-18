@@ -65,6 +65,7 @@ int main (int argc, char *const argv[])
 	cutoff_2=atof(argv[6]);
 
 
+
 	std::vector<std::vector<string> > Vec_seqatu_input;
 	SeqATU_Input SeqATU;
 	Vec_seqatu_input=SeqATU.ATUinput(vec_input_1,vec_input_2,vec_input_3,cutoff_1,cutoff_2);
@@ -75,6 +76,8 @@ int main (int argc, char *const argv[])
 	for(int e=0;e<Vec_seqatu_input.size();e++)
 	{
 		vec_gene=Vec_seqatu_input[e];
+
+		
 		if(Vec_seqatu_input[e].size()==2)
 		{
 			ofs<<Vec_seqatu_input[e][0]<<"\t"<<Vec_seqatu_input[e][1]<<"\n";
@@ -214,6 +217,8 @@ int main (int argc, char *const argv[])
 		x.resize(n);
     	solve_quadprog(G, g0, CE, ce0, CI, ci0, x);	
 //************SeqATU--convex quadratic programming*********		
+
+
 
 
 //************SeqATU--output of ATUs*********

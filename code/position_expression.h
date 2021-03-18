@@ -50,9 +50,11 @@ int end;
 	{
 		vec_bp.push_back(0);
 	}
+
 	for(int i=0;i<Read_left.size();i++)
 	{
 		start=Read_left[i];
+//cout<<"start:"<<start<<"\n";
 		end=Read_right[i];
 		if((First<=start)&&(start<=Last)&&(First<=end)&&(end<=Last))
 		{
